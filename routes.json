@@ -1,4 +1,0 @@
-{
-  "/tasks": "tasks",
-  "/task": "/:id"
-}
