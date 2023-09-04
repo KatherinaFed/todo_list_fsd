@@ -1,0 +1,54 @@
+.itemArea {
+  display: flex;
+  flex-direction: column;
+  height: 8rem;
+  width: 18rem;
+  margin: 0 1rem 1rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  position: relative;
+  background: #b1cbbb;
+}
+
+textarea {
+  border: none;
+  border-radius: 0.5rem;
+  background: #b1cbbb;
+  padding: 0.5rem;
+  resize: none;
+  height: 80%;
+  font-size: 16px;
+}
+
+.itemButtons {
+  bottom: 1rem;
+  position: absolute;
+  right: 1rem;
+}
+
+.closeBtn {
+  background-color: initial;
+  border: none;
+  border-radius: 20%;
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin: 0 0.6rem;
+}
+
+.doneBtn {
+  background-color: initial;
+  border: none;
+  border-radius: 20%;
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin: 0 0.6rem;
+}
+
+.editBtn {
+  background-color: initial;
+  border: none;
+  border-radius: 20%;
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin: 0 0.6rem;
+}

@@ -1,0 +1,30 @@
+form {
+  display: flex;
+    justify-content: center;
+}
+
+.todoInput {
+  align-self: center;
+  background-color: #b1cbbb;
+  border: none;
+  border-radius: 5px;
+  max-height: 2.5rem;
+  min-width: 15rem;
+  padding: 0.5rem 1rem;
+  width: 40vw;
+}
+
+.addTodoBtn {
+  align-items: center;
+  background-color: #ff9a3c;
+  border: 1px solid #b1cbbb;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  height: 2.5rem;
+  width: 5rem;
+  justify-content: center;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+}
