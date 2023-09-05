@@ -14,11 +14,3 @@
   background-color: #ffc93c;
   cursor: pointer;
 }
-
-.activeButton {
-  margin-right: 1rem;
-}
-
-.completedButton {
-  margin-right: 1rem;
-}

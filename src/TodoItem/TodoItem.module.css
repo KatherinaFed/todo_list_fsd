@@ -7,13 +7,12 @@
   padding: 1rem;
   border-radius: 0.5rem;
   position: relative;
-  background: #b1cbbb;
 }
 
 textarea {
+  background-color: initial;
   border: none;
   border-radius: 0.5rem;
-  background: #b1cbbb;
   padding: 0.5rem;
   resize: none;
   height: 80%;
@@ -29,16 +28,13 @@ textarea {
 .closeBtn {
   background-color: initial;
   border: none;
-  border-radius: 20%;
   cursor: pointer;
   font-size: 1.4rem;
-  margin: 0 0.6rem;
 }
 
 .doneBtn {
   background-color: initial;
   border: none;
-  border-radius: 20%;
   cursor: pointer;
   font-size: 1.4rem;
   margin: 0 0.6rem;
@@ -47,7 +43,18 @@ textarea {
 .editBtn {
   background-color: initial;
   border: none;
-  border-radius: 20%;
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin: 0 0.6rem;
+}
+
+.completedTodo {
+  position: absolute;
+  right: 0.3rem;
+  top: 1rem;
+
+  background-color: initial;
+  border: none;
   cursor: pointer;
   font-size: 1.4rem;
   margin: 0 0.6rem;
