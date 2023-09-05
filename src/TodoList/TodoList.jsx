@@ -9,15 +9,17 @@ import { uniqueId } from 'lodash';
 const TodoList = () => {
   const dispatch = useDispatch();
   const { todos, isLoading } = useSelector((state) => state.todos);
-  console.log('TodoList: ', todos)
-
+  
   useEffect(() => {
     dispatch(getAllTodosThunk());
   }, [dispatch]);
+  console.log(todos)
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
+
+  // console.log('todos: ', todos)
 
   return (
     <div className={cls.todoList}>
