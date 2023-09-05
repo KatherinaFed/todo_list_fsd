@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import _ from 'lodash';
+import _, { uniqueId } from 'lodash';
 import axios from 'axios';
 import { API_URL } from '../shared/config';
 
@@ -23,11 +23,13 @@ export const addTodoThunk = createAsyncThunk(
   async (payload) => {
     try {
       const response = await axios.post(API_URL, {
+        id: uniqueId(),
         title: payload,
+        isCompleted: false,
       });
 
       if (response.status === 201) {
-        return response.data.title;
+        return response.data;
       } else {
         throw new Error('Failed to add todo');
       }
@@ -53,7 +55,7 @@ export const removeTodoThunk = createAsyncThunk(
 export const completeTodoThunk = createAsyncThunk(
   'todos/completeTodoThunk',
   async ({ id }) => {
-    const response = await axios.patch(API_URL, { id });
+    const response = await axios.patch(`${API_URL}/${id}`);
 
     return response.data;
   }
@@ -71,10 +73,12 @@ const todoSlice = createSlice({
   reducers: {
     addTodo(state, action) {
       const { todos } = state;
+      const { id, title, isCompleted } = action.payload;
+
       const newTask = {
-        id: _.uniqueId(),
-        title: action.payload,
-        isCompleted: false,
+        id,
+        title,
+        isCompleted,
       };
 
       return {
@@ -92,8 +96,21 @@ const todoSlice = createSlice({
     },
     completeTodo(state, action) {
       const { id } = action.payload;
-      const index = state.todos.findIndex((todo) => todo.id === id);
-      state.todos[index].isCompleted = true;
+
+      const updatedTodos = state.todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            isCompleted: true,
+          };
+        }
+        return todo;
+      });
+
+      return {
+        ...state,
+        todos: updatedTodos,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -113,11 +130,12 @@ const todoSlice = createSlice({
       .addCase(addTodoThunk.fulfilled, (state, action) => {
         // ADD TODO
         const { todos } = state;
+        const { id, title, isCompleted } = action.payload;
 
         const newTask = {
-          id: _.uniqueId(),
-          title: action.payload,
-          isCompleted: false,
+          id,
+          title,
+          isCompleted,
         };
 
         return {
@@ -137,8 +155,21 @@ const todoSlice = createSlice({
       .addCase(completeTodoThunk.fulfilled, (state, action) => {
         // COMPLETE TODO
         const { id } = action.payload;
-        const index = state.findIndex((todo) => todo.id === id);
-        state.todos[index].isCompleted = true;
+
+        const updatedTodos = state.todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              isCompleted: true,
+            };
+          }
+          return todo;
+        });
+
+        return {
+          ...state,
+          todos: updatedTodos,
+        };
       });
   },
 });
