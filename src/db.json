@@ -1,19 +1,12 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "title": "Hello!",
-      "isCompleted": false
-    },
-    {
-      "id": "11",
       "title": "JavScript",
-      "isCompleted": false
+      "id": "11"
     },
     {
-      "id": "62",
       "title": "dfdfdf",
-      "isCompleted": false
+      "id": "62"
     }
   ]
 }

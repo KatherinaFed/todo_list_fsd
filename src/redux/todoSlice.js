@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import _, { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash';
 import axios from 'axios';
 import { API_URL } from '../shared/config';
 
@@ -61,6 +61,15 @@ export const completeTodoThunk = createAsyncThunk(
   }
 );
 
+export const updateTodoThunk = createAsyncThunk(
+  'todos/updateTodoThunk',
+  async ({ id, title }) => {
+    const response = await axios.put(`${API_URL}/${id}`, { title });
+
+    return response.data;
+  }
+);
+
 const initialState = {
   todos: [],
   error: false,
@@ -97,7 +106,7 @@ const todoSlice = createSlice({
     completeTodo(state, action) {
       const { id } = action.payload;
 
-      const updatedTodos = state.todos.map((todo) => {
+      const completedTodos = state.todos.map((todo) => {
         if (todo.id === id) {
           return {
             ...todo,
@@ -109,7 +118,7 @@ const todoSlice = createSlice({
 
       return {
         ...state,
-        todos: updatedTodos,
+        todos: completedTodos,
       };
     },
   },
@@ -156,11 +165,30 @@ const todoSlice = createSlice({
         // COMPLETE TODO
         const { id } = action.payload;
 
-        const updatedTodos = state.todos.map((todo) => {
+        const completedTodos = state.todos.map((todo) => {
           if (todo.id === id) {
             return {
               ...todo,
               isCompleted: true,
+            };
+          }
+          return todo;
+        });
+
+        return {
+          ...state,
+          todos: completedTodos,
+        };
+      })
+      .addCase(updateTodoThunk.fulfilled, (state, action) => {
+        // UPDATE TODO
+        const { id, title } = action.payload;
+
+        const updatedTodos = state.todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              title,
             };
           }
           return todo;
