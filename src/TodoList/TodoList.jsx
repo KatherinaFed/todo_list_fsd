@@ -4,26 +4,28 @@ import Buttons from '../Buttons/Buttons';
 import { TodoItem } from '../TodoItem/TodoItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTodosThunk } from '../redux/todoSlice';
+import { uniqueId } from 'lodash';
 
 const TodoList = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos);
-  
+  const { todos, isLoading } = useSelector((state) => state.todos);
+  console.log('TodoList: ', todos)
+
   useEffect(() => {
     dispatch(getAllTodosThunk());
   }, [dispatch]);
 
-  if (!todos) {
+  if (isLoading) {
     return <h1>Loading...</h1>;
   }
-  
-  console.log('TodoList: ', todos)
+
   return (
     <div className={cls.todoList}>
       <Buttons />
       <ul>
         {todos.map((todo) => (
           <TodoItem
+            key={uniqueId()}
             id={todo.id}
             title={todo.title}
             isCompleted={todo.isCompleted}

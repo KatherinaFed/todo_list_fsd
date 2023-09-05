@@ -8,8 +8,8 @@ import { uniqueId } from 'lodash';
 
 export const TodoItem = ({ id, title, isCompleted }) => {
   return (
-    <motion.li key={uniqueId()} className={cls.itemArea} whileHover={{ scale: 0.9 }}>
-      <textarea disabled>{title}</textarea>
+    <motion.li className={cls.itemArea} whileHover={{ scale: 0.9 }}>
+      <textarea disabled value={title} />
       <div className={cls.itemButtons}>
         <motion.button whileHover={{ scale: 1.2 }} className={cls.editBtn}>
           <AiOutlineEdit />

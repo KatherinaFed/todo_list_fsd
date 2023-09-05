@@ -6,11 +6,14 @@ import { API_URL } from '../shared/config';
 // GET TODOS
 export const getAllTodosThunk = createAsyncThunk(
   'todos/getAllTodosThunk',
-  async () => {
-    const response = await axios.get(API_URL);
-    console.log('Thunk: ', response.data);
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(API_URL);
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Error fetching todos');
+    }
   }
 );
 
@@ -20,11 +23,13 @@ export const addTodoThunk = createAsyncThunk(
   async (payload) => {
     try {
       const response = await axios.post(API_URL, {
-        title: payload.title,
+        title: payload,
       });
 
-      if (response.status === 200) {
-        return { todo: response.data };
+      console.log(response);
+
+      if (response.status === 201) {
+        return response.data.title;
       } else {
         throw new Error('Failed to add todo');
       }
@@ -34,42 +39,98 @@ export const addTodoThunk = createAsyncThunk(
   }
 );
 
+// REMOVE TODO
+export const removeTodoThunk = createAsyncThunk(
+  'todos/removeTodoThunk',
+  async ({ id }) => {
+    const response = await axios.delete(`${API_URL}/${id}`);
+
+    return response.data.id;
+  }
+);
+
+// COMPLETE TODO
+export const completeTodoThunk = createAsyncThunk(
+  'todos/completeTodoThunk',
+  async ({ id }) => {
+    const response = await axios.patch(API_URL, { id });
+
+    return response.data;
+  }
+);
+
+const initialState = {
+  todos: [],
+  error: false,
+  isLoading: false,
+};
+
 const todoSlice = createSlice({
   name: 'todos',
-  initialState: [],
+  initialState,
   reducers: {
     addTodo(state, action) {
-      const { title } = action.payload;
-
+      const { todos } = state;
       const newTask = {
         id: _.uniqueId(),
-        title,
+        title: action.payload,
         isCompleted: false,
       };
 
-      state.push(newTask);
+      return {
+        ...state,
+        todos: [...todos, newTask],
+      };
     },
     removeTodo(state, action) {
-      return state.filter((task) => task.id !== action.payload);
+      const { id } = action.payload;
+      return state.filter((task) => task.id !== id);
     },
     completeTodo(state, action) {
-      return state.map((task) => {
-        if (task.id === action.payload) {
-          return { ...task, isCompleted: true };
-        }
-
-        return task;
-      });
+      const { id } = action.payload;
+      const index = state.findIndex((todo) => todo.id === id);
+      state.todos[index].isCompleted = true;
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getAllTodosThunk.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getAllTodosThunk.fulfilled, (state, action) => {
-        return action.payload;
+        // GET TODOS
+        state.isLoading = false;
+        state.todos = action.payload;
+      })
+      .addCase(getAllTodosThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       })
       .addCase(addTodoThunk.fulfilled, (state, action) => {
-        // Handle the fulfilled action by updating the state with the new todo
-        state.push(action.payload.todo);
+        // ADD TODO
+        const { todos } = state;
+        
+        const newTask = {
+          id: _.uniqueId(),
+          title: action.payload,
+          isCompleted: false,
+        };
+
+        return {
+          ...state,
+          todos: [...todos, newTask],
+        };
+      })
+      .addCase(removeTodoThunk.fulfilled, (state, action) => {
+        // REMOVE TODO
+        const { id } = action.payload;
+        return state.filter((task) => task.id !== id);
+      })
+      .addCase(completeTodoThunk.fulfilled, (state, action) => {
+        // COMPLETE TODO
+        const { id } = action.payload;
+        const index = state.findIndex((todo) => todo.id === id);
+        state.todos[index].isCompleted = true;
       });
   },
 });
