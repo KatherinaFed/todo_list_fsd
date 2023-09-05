@@ -25,7 +25,7 @@ const TodoForm = () => {
         value={todo}
         className={cls.todoInput}
         type="text"
-        placeholder="Add a new task ;)"
+        placeholder='New task...'
       />
       <motion.button className={cls.addTodoBtn} whileHover={{ scale: 1.1 }}>
         <GrAdd />

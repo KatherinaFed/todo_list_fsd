@@ -41,6 +41,10 @@ export const TodoItem = ({ id, title, isCompleted }) => {
       style={isCompleted ? styleDoneTodo : styleTodoBG}
       className={cls.itemArea}
       whileHover={{ scale: 0.9 }}
+      initial={{ x: 200 }} // начальное положение справа экрана
+      animate={{ x: 0 }} // конечное положение (сдвиг на 0)
+      exit={{ x: -200, duration: 0.5 }}
+      transition={{ duration: 0.5 }}
     >
       {isCompleted && (
         <span className={cls.completedTodo} style={{ color: 'green' }}>

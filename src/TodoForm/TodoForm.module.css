@@ -14,6 +14,15 @@ form {
   width: 40vw;
 }
 
+.todoInput:focus::placeholder {
+  color: transparent;
+}
+
+.todoInput:focus {
+  outline: none;
+  border: 2px solid #ffc93c;
+}
+
 .addTodoBtn {
   align-items: center;
   background-color: #ff9a3c;
