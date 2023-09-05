@@ -1,12 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CgClose } from 'react-icons/cg';
-import { MdDoneAll } from 'react-icons/md';
+import { MdDoneAll, MdOutlineDoneOutline } from 'react-icons/md';
 import { AiOutlineEdit } from 'react-icons/ai';
 import cls from './TodoItem.module.css';
-import { uniqueId } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { completeTodoThunk, removeTodoThunk } from '../redux/todoSlice';
+
+const styleDoneTodo = { backgroundColor: '#ffc93c' };
+const styleTodoBG = { backgroundColor: '#b1cbbb' };
 
 export const TodoItem = ({ id, title, isCompleted }) => {
   const dispatch = useDispatch();
@@ -20,7 +22,16 @@ export const TodoItem = ({ id, title, isCompleted }) => {
   };
 
   return (
-    <motion.li className={cls.itemArea} whileHover={{ scale: 0.9 }}>
+    <motion.li
+      style={isCompleted ? styleDoneTodo : styleTodoBG}
+      className={cls.itemArea}
+      whileHover={{ scale: 0.9 }}
+    >
+      {isCompleted && (
+        <span className={cls.completedTodo} style={{ color: 'green' }}>
+          <MdOutlineDoneOutline />
+        </span>
+      )}
       <textarea disabled value={title} />
       <div className={cls.itemButtons}>
         <motion.button whileHover={{ scale: 1.2 }} className={cls.editBtn}>
@@ -32,7 +43,7 @@ export const TodoItem = ({ id, title, isCompleted }) => {
           className={cls.doneBtn}
           onClick={handleCompleteTodo}
         >
-          <MdDoneAll />
+          {!isCompleted ? <MdDoneAll /> : null}
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.2 }}
