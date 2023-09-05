@@ -5,8 +5,17 @@ import { MdDoneAll } from 'react-icons/md';
 import { AiOutlineEdit } from 'react-icons/ai';
 import cls from './TodoItem.module.css';
 import { uniqueId } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { removeTodoThunk } from '../redux/todoSlice';
 
 export const TodoItem = ({ id, title, isCompleted }) => {
+  // console.log('TodoItem ID: ', id)
+  const dispatch = useDispatch();
+
+  const handleRemoveTodo = () => {
+    dispatch(removeTodoThunk({ id }));
+  };
+
   return (
     <motion.li className={cls.itemArea} whileHover={{ scale: 0.9 }}>
       <textarea disabled value={title} />
@@ -25,6 +34,7 @@ export const TodoItem = ({ id, title, isCompleted }) => {
           whileHover={{ scale: 1.2 }}
           style={{ color: 'red' }}
           className={cls.closeBtn}
+          onClick={handleRemoveTodo}
         >
           <CgClose />
         </motion.button>

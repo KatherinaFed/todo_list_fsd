@@ -14,6 +14,7 @@ const TodoForm = () => {
 
     if (todo) {
       dispatch(addTodoThunk(todo));
+      setTodo('');
     }
   };
 

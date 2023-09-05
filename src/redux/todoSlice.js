@@ -26,8 +26,6 @@ export const addTodoThunk = createAsyncThunk(
         title: payload,
       });
 
-      console.log(response);
-
       if (response.status === 201) {
         return response.data.title;
       } else {
@@ -45,7 +43,9 @@ export const removeTodoThunk = createAsyncThunk(
   async ({ id }) => {
     const response = await axios.delete(`${API_URL}/${id}`);
 
-    return response.data.id;
+    if (response.status === 200) {
+      return { id };
+    }
   }
 );
 
@@ -84,11 +84,15 @@ const todoSlice = createSlice({
     },
     removeTodo(state, action) {
       const { id } = action.payload;
-      return state.filter((task) => task.id !== id);
+
+      return {
+        ...state,
+        todos: state.todos.filter((task) => task.id !== id),
+      };
     },
     completeTodo(state, action) {
       const { id } = action.payload;
-      const index = state.findIndex((todo) => todo.id === id);
+      const index = state.todos.findIndex((todo) => todo.id === id);
       state.todos[index].isCompleted = true;
     },
   },
@@ -109,7 +113,7 @@ const todoSlice = createSlice({
       .addCase(addTodoThunk.fulfilled, (state, action) => {
         // ADD TODO
         const { todos } = state;
-        
+
         const newTask = {
           id: _.uniqueId(),
           title: action.payload,
@@ -124,7 +128,11 @@ const todoSlice = createSlice({
       .addCase(removeTodoThunk.fulfilled, (state, action) => {
         // REMOVE TODO
         const { id } = action.payload;
-        return state.filter((task) => task.id !== id);
+
+        return {
+          ...state,
+          todos: state.todos.filter((task) => task.id !== id),
+        };
       })
       .addCase(completeTodoThunk.fulfilled, (state, action) => {
         // COMPLETE TODO
