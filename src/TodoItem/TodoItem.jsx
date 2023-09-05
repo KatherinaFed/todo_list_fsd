@@ -6,11 +6,14 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import cls from './TodoItem.module.css';
 import { uniqueId } from 'lodash';
 import { useDispatch } from 'react-redux';
-import { removeTodoThunk } from '../redux/todoSlice';
+import { completeTodoThunk, removeTodoThunk } from '../redux/todoSlice';
 
 export const TodoItem = ({ id, title, isCompleted }) => {
-  // console.log('TodoItem ID: ', id)
   const dispatch = useDispatch();
+
+  const handleCompleteTodo = () => {
+    dispatch(completeTodoThunk({ id }));
+  };
 
   const handleRemoveTodo = () => {
     dispatch(removeTodoThunk({ id }));
@@ -27,6 +30,7 @@ export const TodoItem = ({ id, title, isCompleted }) => {
           whileHover={{ scale: 1.2 }}
           style={{ color: 'green' }}
           className={cls.doneBtn}
+          onClick={handleCompleteTodo}
         >
           <MdDoneAll />
         </motion.button>
