@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CgClose } from 'react-icons/cg';
 import { MdDoneAll, MdOutlineDoneOutline } from 'react-icons/md';
 import { AiOutlineEdit } from 'react-icons/ai';
+import { LuSave } from 'react-icons/lu';
 import cls from './TodoItem.module.css';
 import { useDispatch } from 'react-redux';
-import { completeTodoThunk, removeTodoThunk } from '../redux/todoSlice';
+import {
+  completeTodoThunk,
+  removeTodoThunk,
+  updateTodoThunk,
+} from '../redux/todoSlice';
 
 const styleDoneTodo = { backgroundColor: '#ffc93c' };
 const styleTodoBG = { backgroundColor: '#b1cbbb' };
 
 export const TodoItem = ({ id, title, isCompleted }) => {
+  const [isEditing, setIsEditing] = useState(true);
+  const [editedTitle, setEditedTitle] = useState(title);
+
   const dispatch = useDispatch();
 
   const handleCompleteTodo = () => {
@@ -20,6 +28,13 @@ export const TodoItem = ({ id, title, isCompleted }) => {
   const handleRemoveTodo = () => {
     dispatch(removeTodoThunk({ id }));
   };
+
+  const handleUpdateTitle = () => {
+    setIsEditing(false);
+  };
+
+  const handleSaveTitle = () =>
+    dispatch(updateTodoThunk({ id, title: editedTitle }));
 
   return (
     <motion.li
@@ -32,11 +47,32 @@ export const TodoItem = ({ id, title, isCompleted }) => {
           <MdOutlineDoneOutline />
         </span>
       )}
-      <textarea disabled value={title} />
+
+      <textarea
+        style={{ border: !isEditing && '1px solid #155263' }}
+        disabled={isEditing}
+        value={editedTitle}
+        onChange={(e) => setEditedTitle(e.target.value)}
+      />
+
       <div className={cls.itemButtons}>
-        <motion.button whileHover={{ scale: 1.2 }} className={cls.editBtn}>
-          <AiOutlineEdit />
-        </motion.button>
+        {isEditing ? (
+          <motion.button
+            whileHover={{ scale: 1.2 }}
+            className={cls.editBtn}
+            onClick={handleUpdateTitle}
+          >
+            <AiOutlineEdit />
+          </motion.button>
+        ) : (
+          <motion.button
+            whileHover={{ scale: 1.2 }}
+            className={cls.editBtn}
+            onClick={handleSaveTitle}
+          >
+            <LuSave />
+          </motion.button>
+        )}
         <motion.button
           whileHover={{ scale: 1.2 }}
           style={{ color: 'green' }}
