@@ -10,7 +10,7 @@ import {
   completeTodoThunk,
   removeTodoThunk,
   updateTodoThunk,
-} from '../redux/todoSlice';
+} from '../../redux/todoSlice';
 
 const styleDoneTodo = { backgroundColor: '#ffc93c' };
 const styleTodoBG = { backgroundColor: '#b1cbbb' };

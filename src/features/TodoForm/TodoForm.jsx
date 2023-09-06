@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { GrAdd } from 'react-icons/gr';
 import cls from './TodoForm.module.css';
 import { useDispatch } from 'react-redux';
-import { addTodoThunk } from '../redux/todoSlice';
+import { addTodoThunk } from '../../redux/todoSlice';
 
 const TodoForm = () => {
   const [todo, setTodo] = useState('');

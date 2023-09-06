@@ -80,21 +80,21 @@ const todoSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo(state, action) {
-      const { todos } = state;
-      const { id, title, isCompleted } = action.payload;
+    // addTodo(state, action) {
+    //   const { todos } = state;
+    //   const { id, title, isCompleted } = action.payload;
 
-      const newTask = {
-        id,
-        title,
-        isCompleted,
-      };
+    //   const newTask = {
+    //     id,
+    //     title,
+    //     isCompleted,
+    //   };
 
-      return {
-        ...state,
-        todos: [...todos, newTask],
-      };
-    },
+    //   return {
+    //     ...state,
+    //     todos: [...todos, newTask],
+    //   };
+    // },
     removeTodo(state, action) {
       const { id } = action.payload;
 
