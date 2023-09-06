@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import cls from './TodoList.module.css';
-import Buttons from '../Buttons/Buttons';
+import Buttons from '../../shared/ui/Buttons/Buttons';
 import { TodoItem } from '../TodoItem/TodoItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllTodosThunk } from '../redux/todoSlice';
+import { getAllTodosThunk } from '../../redux/todoSlice';
 import { uniqueId } from 'lodash';
 
 const TodoList = () => {
@@ -49,7 +49,7 @@ const TodoList = () => {
           : null}
         {activeButton === 'completed'
           ? todos.map((todo) => {
-            console.log(todo)
+              console.log(todo);
               return (
                 todo.isCompleted === true && (
                   <TodoItem

@@ -1,7 +1,7 @@
 import './App.css';
-import Text from './Text/Text';
-import TodoForm from './TodoForm/TodoForm';
-import TodoList from './TodoList/TodoList';
+import Text from '../shared/ui/Text/Text';
+import TodoForm from '../features/TodoForm/TodoForm';
+import TodoList from '../features/TodoList/TodoList';
 
 function App() {
   return (
