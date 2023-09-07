@@ -1,29 +1,36 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_URL } from '../shared/config';
+import { uniqueId } from 'lodash';
 
 export const todoAPI = createApi({
   reducerPath: 'todos',
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['Todos'],
   endpoints: (builder) => ({
+    // GET TODOS
     getAllTodos: builder.query({
       query: () => '/tasks',
       providesTags: ['Todos'],
     }),
+    // ADD TODO
     addTodo: builder.mutation({
       query: (data) => ({
         url: '/tasks',
-        method: 'PUT',
-        body: data,
+        method: 'POST',
+        body: {
+          id: uniqueId(),
+          title: data,
+          isCompleted: false,
+        },
       }),
-      providesTags: ['Todos'],
+      invalidatesTags: ['Todos'],
     }),
     deleteTodo: builder.mutation({
       query: ({ id }) => ({
         url: `/todos/${id}`,
         method: 'DELETE',
       }),
-      providesTags: ['Todos'],
+      invalidatesTags: ['Todos'],
     }),
     completeTodo: builder.mutation({
       query: ({ id }) => ({
@@ -31,7 +38,7 @@ export const todoAPI = createApi({
         method: 'PATCH',
         body: { id },
       }),
-      providesTags: ['Todos'],
+      invalidatesTags: ['Todos'],
     }),
     updateTodo: builder.mutation({
       query: ({ id, title }) => ({
@@ -39,7 +46,7 @@ export const todoAPI = createApi({
         method: 'PUT',
         body: { title },
       }),
-      providesTags: ['Todos'],
+      invalidatesTags: ['Todos'],
     }),
   }),
 });
