@@ -2,22 +2,25 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { GrAdd } from 'react-icons/gr';
 import cls from './TodoForm.module.css';
+import { useAddTodoMutation } from '../../services/todoServiceApi';
 
 const TodoForm = () => {
   const [todo, setTodo] = useState('');
-  
 
-  const handleSubmit = (e) => {
+  // RTK add task
+  const [addTodo] = useAddTodoMutation();
+  
+  const handleAddTodoSubmit = (e) => {
     e.preventDefault();
 
-    // if (todo) {
-    //   dispatch(addTodoThunk(todo));
-    //   setTodo('');
-    // }
+    if (todo) {
+      addTodo(todo);
+      setTodo('');
+    }
   };
 
   return (
-    <form action="submit" onSubmit={handleSubmit}>
+    <form action="submit" onSubmit={handleAddTodoSubmit}>
       <input
         onChange={(e) => setTodo(e.target.value)}
         value={todo}

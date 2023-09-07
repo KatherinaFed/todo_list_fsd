@@ -5,7 +5,7 @@ import { MdDoneAll, MdOutlineDoneOutline } from 'react-icons/md';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { LuSave } from 'react-icons/lu';
 import cls from './TodoItem.module.css';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 // import {
 //   completeTodoThunk,
 //   removeTodoThunk,
@@ -18,8 +18,6 @@ const styleTodoBG = { backgroundColor: '#b1cbbb' };
 export const TodoItem = ({ id, title, isCompleted }) => {
   const [isEditing, setIsEditing] = useState(true);
   const [editedTitle, setEditedTitle] = useState(title);
-
-  const dispatch = useDispatch();
 
   const handleCompleteTodo = () => {
     // dispatch(completeTodoThunk({ id }));
@@ -34,18 +32,13 @@ export const TodoItem = ({ id, title, isCompleted }) => {
   };
 
   const handleSaveTitle = () => {
-  //   dispatch(updateTodoThunk({ id, title: editedTitle }));
+    //   dispatch(updateTodoThunk({ id, title: editedTitle }));
   };
 
   return (
-    <motion.li
+    <li
       style={isCompleted ? styleDoneTodo : styleTodoBG}
       className={cls.itemArea}
-      whileHover={{ scale: 0.9 }}
-      initial={{ x: 200 }} // начальное положение справа экрана
-      animate={{ x: 0 }} // конечное положение (сдвиг на 0)
-      exit={{ x: -200, duration: 0.5 }}
-      transition={{ duration: 0.5 }}
     >
       {isCompleted && (
         <span className={cls.completedTodo} style={{ color: 'green' }}>
@@ -95,6 +88,6 @@ export const TodoItem = ({ id, title, isCompleted }) => {
           <CgClose />
         </motion.button>
       </div>
-    </motion.li>
+    </li>
   );
 };
