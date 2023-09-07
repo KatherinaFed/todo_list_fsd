@@ -7,7 +7,6 @@ import { useAddTodoMutation } from '../../services/todoServiceApi';
 const TodoForm = () => {
   const [todo, setTodo] = useState('');
 
-  // RTK add task
   const [addTodo] = useAddTodoMutation();
   
   const handleAddTodoSubmit = (e) => {

@@ -8,7 +8,6 @@ import { useGetAllTodosQuery } from '../../services/todoServiceApi';
 const TodoList = () => {
   const [activeButton, setActiveButton] = useState('all');
 
-  // use RTK
   const { data, isLoading, isError, error } = useGetAllTodosQuery();
 
   if (isLoading) {
