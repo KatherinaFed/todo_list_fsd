@@ -2,20 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { GrAdd } from 'react-icons/gr';
 import cls from './TodoForm.module.css';
-import { useDispatch } from 'react-redux';
-import { addTodoThunk } from '../../redux/todoSlice';
 
 const TodoForm = () => {
   const [todo, setTodo] = useState('');
-  const dispatch = useDispatch();
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (todo) {
-      dispatch(addTodoThunk(todo));
-      setTodo('');
-    }
+    // if (todo) {
+    //   dispatch(addTodoThunk(todo));
+    //   setTodo('');
+    // }
   };
 
   return (
