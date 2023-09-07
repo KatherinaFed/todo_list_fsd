@@ -27,14 +27,14 @@ export const todoAPI = createApi({
     }),
     deleteTodo: builder.mutation({
       query: ({ id }) => ({
-        url: `/todos/${id}`,
+        url: `/tasks/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Todos'],
     }),
     completeTodo: builder.mutation({
       query: ({ id }) => ({
-        url: `/todos/${id}`,
+        url: `/tasks/${id}`,
         method: 'PATCH',
         body: { id },
       }),
@@ -42,7 +42,7 @@ export const todoAPI = createApi({
     }),
     updateTodo: builder.mutation({
       query: ({ id, title }) => ({
-        url: `/todos/${id}`,
+        url: `/tasks/${id}`,
         method: 'PUT',
         body: { title },
       }),

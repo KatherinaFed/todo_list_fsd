@@ -10,8 +10,6 @@ const TodoList = () => {
 
   // use RTK
   const { data, isLoading, isError, error } = useGetAllTodosQuery();
-  
-  console.log(data)
 
   if (isLoading) {
     return <h1>Loading...</h1>;
