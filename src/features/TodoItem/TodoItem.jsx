@@ -5,12 +5,10 @@ import { MdDoneAll, MdOutlineDoneOutline } from 'react-icons/md';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { LuSave } from 'react-icons/lu';
 import cls from './TodoItem.module.css';
-// import { useDispatch } from 'react-redux';
-// import {
-//   completeTodoThunk,
-//   removeTodoThunk,
-//   updateTodoThunk,
-// } from '../../redux/todoSlice';
+import {
+  useCompleteTodoMutation,
+  useDeleteTodoMutation,
+} from '../../services/todoServiceApi';
 
 const styleDoneTodo = { backgroundColor: '#ffc93c' };
 const styleTodoBG = { backgroundColor: '#b1cbbb' };
@@ -19,12 +17,15 @@ export const TodoItem = ({ id, title, isCompleted }) => {
   const [isEditing, setIsEditing] = useState(true);
   const [editedTitle, setEditedTitle] = useState(title);
 
+  // delete todo RTK
+  const [deleteTodo] = useDeleteTodoMutation();
+
   const handleCompleteTodo = () => {
     // dispatch(completeTodoThunk({ id }));
   };
 
   const handleRemoveTodo = () => {
-    // dispatch(removeTodoThunk({ id }));
+    deleteTodo({ id });
   };
 
   const handleUpdateTitle = () => {
