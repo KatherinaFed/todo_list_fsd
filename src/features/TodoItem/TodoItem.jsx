@@ -8,6 +8,7 @@ import cls from './TodoItem.module.css';
 import {
   useCompleteTodoMutation,
   useDeleteTodoMutation,
+  useUpdateTodoMutation,
 } from '../../services/todoServiceApi';
 
 const styleDoneTodo = { backgroundColor: '#ffc93c' };
@@ -17,23 +18,27 @@ export const TodoItem = ({ id, title, isCompleted }) => {
   const [isEditing, setIsEditing] = useState(true);
   const [editedTitle, setEditedTitle] = useState(title);
 
-  // delete todo RTK
   const [deleteTodo] = useDeleteTodoMutation();
+  const [completeTodo] = useCompleteTodoMutation();
+  const [updateTodo] = useUpdateTodoMutation();
 
-  const handleCompleteTodo = () => {
-    // dispatch(completeTodoThunk({ id }));
-  };
-
+  // DELETE
   const handleRemoveTodo = () => {
     deleteTodo({ id });
   };
 
-  const handleUpdateTitle = () => {
-    setIsEditing(false);
+  // COMPLETE
+  const handleCompleteTodo = () => {
+    completeTodo({ id });
   };
 
+  // UPDATE
   const handleSaveTitle = () => {
-    //   dispatch(updateTodoThunk({ id, title: editedTitle }));
+    updateTodo({ id, title: editedTitle });
+  };
+
+  const handleUpdateTitle = () => {
+    setIsEditing(false);
   };
 
   return (

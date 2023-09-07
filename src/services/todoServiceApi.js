@@ -7,12 +7,12 @@ export const todoAPI = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['Todos'],
   endpoints: (builder) => ({
-    // GET TODOS
+    // GET
     getAllTodos: builder.query({
       query: () => '/tasks',
       providesTags: ['Todos'],
     }),
-    // ADD TODO
+    // ADD
     addTodo: builder.mutation({
       query: (data) => ({
         url: '/tasks',
@@ -25,6 +25,7 @@ export const todoAPI = createApi({
       }),
       invalidatesTags: ['Todos'],
     }),
+    // DELETE
     deleteTodo: builder.mutation({
       query: ({ id }) => ({
         url: `/tasks/${id}`,
@@ -32,14 +33,16 @@ export const todoAPI = createApi({
       }),
       invalidatesTags: ['Todos'],
     }),
+    // COMPLETE
     completeTodo: builder.mutation({
       query: ({ id }) => ({
         url: `/tasks/${id}`,
         method: 'PATCH',
-        body: { id },
+        body: { id, isCompleted: true },
       }),
       invalidatesTags: ['Todos'],
     }),
+    // UPDATE
     updateTodo: builder.mutation({
       query: ({ id, title }) => ({
         url: `/tasks/${id}`,
