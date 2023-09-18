@@ -10,7 +10,7 @@ Application that simplify your daily task management.
 ## Key technologies:
 - React
 - JavaScript
-- Redux Toolkit
+- Redux Toolkit (RTK query)
 - Framer-motion
 - JSON-server
 
