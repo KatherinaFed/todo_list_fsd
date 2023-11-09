@@ -1,7 +1,7 @@
 # Todo App
 Application that simplify your daily task management.
 
-### [Try Todo App here](https://react-todo-json-server-f736b2fe9507.herokuapp.com/).
+### [Try Todo App here](https://todo-app-react-d1d856615e9f.herokuapp.com/).
 
 ## Key features:
 - Quickly **add**, **edit**, and **remove** tasks with minimal effort.
