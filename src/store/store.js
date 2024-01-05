@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { todoAPI } from '../services/todoServiceApi';
-import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 const store = configureStore({
   reducer: {
