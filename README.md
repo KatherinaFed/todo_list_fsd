@@ -1,7 +1,8 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/38388a5d-b4d2-4caa-aacb-a96dd22264aa/deploy-status)](https://app.netlify.com/sites/todo-app-fsd/deploys)
 # Todo App
 Application that simplify your daily task management.
 
-### [Try Todo App here](https://todo-app-react-d1d856615e9f.herokuapp.com/).
+### [Try Todo App here](https://todo-app-fsd.netlify.app/).
 
 ## Key features:
 - Quickly **add**, **edit**, and **remove** tasks with minimal effort.
