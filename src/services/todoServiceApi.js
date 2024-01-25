@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_URL } from '../shared/config';
 import { uniqueId } from 'lodash';
 
 export const todoAPI = createApi({
   reducerPath: 'todos',
-  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://mock-server-trxu.onrender.com' }),
   tagTypes: ['Todos'],
   endpoints: (builder) => ({
     // GET
